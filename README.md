@@ -6,6 +6,18 @@ The project focuses on traceability and conservative handling: unsupported claim
 
 Automated outputs are preliminary recommendations. They do not replace human review or authorise irreversible customer-account actions.
 
+## At a glance
+
+| Area | What the pipeline does |
+|---|---|
+| Inputs | Support tickets and Markdown policy documents |
+| Retrieval | Evidence retrieval with document metadata and policy-aware selection |
+| Intelligence | Ticket triage, response drafting, and action-plan generation |
+| Trust controls | Claim-level grounding, source checks, optional semantic NLI, and reconciliation |
+| Safe handling | Conservative fallbacks and human review when evidence is insufficient |
+| Observability | LLM-call audit records, pipeline-stage logs, and validated output artifacts |
+| Verification | 280 automated tests; real embedding and NLI inference tested in the live CPU profile |
+
 ## Features
 
 - **Document ingestion:** Load and chunk knowledge-base documents while preserving document-level metadata.
@@ -36,6 +48,54 @@ The pipeline in `src/main.py` covers these stages:
 The LLM workflow separates triage, response drafting, action planning, and grounding validation. Retrieval evidence and source references are preserved through the pipeline.
 
 When evidence is insufficient, the system uses conservative handling and fallback behaviour. Cases requiring additional judgement should be referred for human review.
+
+### Architecture diagram
+
+```mermaid
+flowchart TD
+    T["tickets.json"] --> N["Normalize incoming tickets"]
+    K["knowledge_base/*.md"] --> C["Load and chunk documents<br/>Preserve source metadata"]
+    C --> E["Build embedding index<br/>Live: all-MiniLM-L6-v2<br/>Offline: deterministic token vectors"]
+    N --> R["Per-ticket retrieval<br/>Semantic ranking and policy-aware selection"]
+    E --> R
+
+    R --> Q{"Retrieval confidence"}
+    Q -->|"Sufficient evidence"| TRI["Triage<br/>LLM or deterministic baseline"]
+    Q -->|"Weak evidence"| TRI
+    Q -->|"Weak evidence"| HR["Set needs_human_review<br/>Use conservative handling"]
+
+    TRI --> D["Response drafting<br/>LLM or safe fallback"]
+    HR -.-> D
+    D --> A["Action-plan generation<br/>Schema and policy checks or fallback"]
+    A --> G["Grounding checks<br/>Source references, relevance, optional NLI"]
+
+    G --> P{"Claims supported?"}
+    P -->|"Yes"| V["Stage 4 LLM grounding review"]
+    P -->|"No"| F["Repair supported claims or use safe fallback<br/>Revalidate the result"]
+    F --> V
+
+    V --> X{"Validator accepts?"}
+    X -->|"Yes"| REC["Reconcile grounding records"]
+    X -->|"No or unavailable"| SAFE["Reject unsupported claims<br/>Use conservative handling and human review"]
+    SAFE --> REC
+
+    REC --> O["Build final ticket outputs<br/>and rank the support queue"]
+    O --> VAL["Strict artifact validation"]
+    VAL --> OUT["Generated JSON artifacts<br/>under output/"]
+
+    subgraph Audit["Observability"]
+        L["logs/llm_calls.jsonl<br/>Provider, model, stage, prompt hash,<br/>artifact and evidence references"]
+        S["logs/pipeline_stages.jsonl<br/>Run-level and ticket-level stage events"]
+    end
+
+    TRI -.-> L
+    D -.-> L
+    A -.-> L
+    V -.-> L
+    R -.-> S
+    G -.-> S
+    VAL -.-> S
+```
 
 ## Repository structure
 
