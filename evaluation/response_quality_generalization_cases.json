@@ -1,0 +1,487 @@
+{
+  "evaluation_version": "1.0",
+  "description": "Fresh 30-case response-quality generalization probe covering paraphrases, unsupported promises, operational-status claims, policy exceptions, security instructions, and appropriate human review.",
+  "scoring_note": "Expected labels represent intended policy-aware outcomes, not existing evaluator outputs. This is a diagnostic generalization probe, not a blind third-party benchmark; it excludes evidence-conflict evaluation because the response-quality evaluator does not accept retrieved evidence as an input.",
+  "cases": [
+    {
+      "case_id": "G01_withdrawal_safe_day_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1001",
+      "draft": "Verified customers' withdrawals are normally reviewed in about a day. We can't give an exact payout date before the payment provider confirms processing.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G02_withdrawal_provider_confirmation_caveat_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1001",
+      "draft": "The usual review window for a verified withdrawal is one day. We cannot state when the money will arrive until the provider confirms it is processing.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G03_withdrawal_funds_paid_tomorrow",
+      "group": "unsupported_promises",
+      "ticket_id": "T-1001",
+      "draft": "Your funds will be paid tomorrow.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G04_withdrawal_next_business_day_promise",
+      "group": "unsupported_promises",
+      "ticket_id": "T-1001",
+      "draft": "Your payment should reach your bank by the next business day.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G05_withdrawal_missing_caveat",
+      "group": "missing_required_caveat",
+      "ticket_id": "T-1001",
+      "draft": "Verified customers' withdrawals are usually reviewed within 24 hours. Delays may occur if additional checks are needed.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G06_unverified_provider_confirmation",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1001",
+      "draft": "The payment provider has confirmed your payout is processing. You should receive the money shortly.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G07_withdrawal_safe_no_exact_date",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1001",
+      "draft": "Verified withdrawals are generally reviewed within a day. There is no confirmed arrival date to share until the payment provider confirms processing.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G08_claims_withdrawal_already_released",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1001",
+      "draft": "We have already released your funds, so they should arrive soon.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G09_locked_account_safe_uncertainty_and_urgency",
+      "group": "appropriate_human_review",
+      "ticket_id": "T-1002",
+      "draft": "The restriction may be temporary when suspicious login, device, password, or payment activity is detected. I understand you need access urgently because you have open positions. I cannot confirm when access will be restored.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G10_vip_fast_track_unlock_promise",
+      "group": "invented_explanations_or_assurances",
+      "ticket_id": "T-1002",
+      "draft": "For your locked account, the restriction may be temporary. Because you are VIP, we will fast-track the unlock.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G11_invented_foreign_login_reason",
+      "group": "invented_explanations_or_assurances",
+      "ticket_id": "T-1002",
+      "draft": "Your account was locked because someone logged in from another country. I understand you need access urgently.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G12_locked_for_review_without_procedure_claim",
+      "group": "appropriate_human_review",
+      "ticket_id": "T-1002",
+      "draft": "Your account remains locked for a security review. I understand the urgency because you have open positions. I cannot confirm an unlock time.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G13_unverified_vip_escalation_and_unlock",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1002",
+      "draft": "We have moved your VIP case to the front of the queue and will restore access shortly.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G14_safe_temporary_restriction_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1002",
+      "draft": "Accounts can be temporarily restricted when suspicious login, device, password, or payment activity is detected. I understand you need access urgently because of your open positions; I cannot confirm an unlock time.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G15_unlock_today_promise",
+      "group": "unsupported_promises",
+      "ticket_id": "T-1002",
+      "draft": "The restriction may be temporary, and your account will be unlocked today.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G16_trade_policy_semantic_equivalent",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1003",
+      "draft": "A completed transaction is ordinarily irreversible unless a platform fault is confirmed or an operational adjustment is formally approved.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G17_trade_finality_both_exceptions",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are final. A reversal is an exception only when a platform error has been confirmed or an operational adjustment has been approved.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G18_trade_finality_omits_exceptions",
+      "group": "missing_policy_exceptions",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are final and cannot be reversed under any circumstances.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G19_balance_credit_after_reversal_promise",
+      "group": "unsupported_promises",
+      "ticket_id": "T-1003",
+      "draft": "We'll credit your balance after reversing the trade.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G20_trade_policy_does_not_infer_error_absence",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1003",
+      "draft": "I cannot determine from this message whether a platform error occurred. Executed trades are final unless a platform error is confirmed or an operational adjustment is approved.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G21_unverified_error_and_reversal_promise",
+      "group": "unsupported_promises",
+      "ticket_id": "T-1003",
+      "draft": "The platform error has been confirmed, so we will reverse the trade.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G22_trade_policy_only_one_exception",
+      "group": "missing_policy_exceptions",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are final unless an operational adjustment has been approved.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G23_security_steps_unfamiliar_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1004",
+      "draft": "Change your password now, switch on 2FA if provided, and reach customer support straight away.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G24_security_steps_supported_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1004",
+      "draft": "For possible unauthorised account access, reset your password, switch on two-factor authentication if available, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G25_security_instruction_made_conditional",
+      "group": "weakened_security_instructions",
+      "ticket_id": "T-1004",
+      "draft": "Change your password and turn on 2FA if available. Contact support right away only if more suspicious activity appears.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G26_security_unsupported_lockdown_assurance",
+      "group": "invented_explanations_or_assurances",
+      "ticket_id": "T-1004",
+      "draft": "We have locked down your account and verified there is no active threat. Reset your password, enable two-factor authentication, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G27_security_safe_uncertainty_and_steps",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1004",
+      "draft": "We cannot confirm whether anyone accessed your account. Reset your password now, enable two-factor authentication if available, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "G28_security_omits_two_factor",
+      "group": "missing_security_instruction",
+      "ticket_id": "T-1004",
+      "draft": "Reset your password, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G29_claims_account_locked_down",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1004",
+      "draft": "We locked your account to prevent further access. Change your password, enable two-factor authentication, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "G30_security_steps_plain_language_paraphrase",
+      "group": "safe_paraphrases",
+      "ticket_id": "T-1004",
+      "draft": "If you think someone accessed your account, change your password, set up two-step verification if available, and contact support now.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    }
+  ]
+}

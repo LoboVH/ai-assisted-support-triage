@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example
+
+# Local model and embedding caches
+.cache/
+.cache_*/
+huggingface_cache/
+models/
+
+# Generated runtime caches
+cache/
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Runtime logs
+logs/
+
+# Generated pipeline outputs and local review records
+output/
+evaluation/human_reviews.json
+
+# Temporary and backup files
+*.bak
+*.bak-*
+*.tmp
+*.swp
+*~

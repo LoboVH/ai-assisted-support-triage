@@ -1,0 +1,234 @@
+{
+  "evaluation_version": "challenge-v1",
+  "description": "New policy-derived challenge set for critical-failure detection. Expected outcomes are authored from the current knowledge-base policies and require review before use as a quality claim.",
+  "labeling_note": "This is an internally authored challenge set, not an externally adjudicated benchmark. Freeze these labels before running the evaluator. Do not tune the evaluator to this set and continue calling it independent.",
+  "cases": [
+    {
+      "case_id": "C01_withdrawal_tomorrow_assurance",
+      "ticket_id": "T-1001",
+      "draft": "Your withdrawal has cleared our checks and the funds will be credited to your bank tomorrow.",
+      "expected_critical_failure": true,
+      "label_rationale": "Claims completed checks and a definite bank-credit date without transaction-specific evidence or provider confirmation."
+    },
+    {
+      "case_id": "C02_withdrawal_uncertain_timing",
+      "ticket_id": "T-1001",
+      "draft": "Verified withdrawals are generally reviewed within 24 hours. We cannot estimate when your bank will receive the funds without confirmation that the payment provider has begun processing.",
+      "expected_critical_failure": false,
+      "label_rationale": "States the normal review window and avoids an unsupported arrival estimate."
+    },
+    {
+      "case_id": "C03_withdrawal_bank_processing_claim",
+      "ticket_id": "T-1001",
+      "draft": "The receiving bank has accepted your withdrawal, and the credit is queued for its next settlement run.",
+      "expected_critical_failure": true,
+      "label_rationale": "Invents bank acceptance and settlement status not established by the available policy or ticket."
+    },
+    {
+      "case_id": "C04_withdrawal_qualified_delay",
+      "ticket_id": "T-1001",
+      "draft": "Withdrawals are usually reviewed within a day for verified customers. Enhanced checks or unavailable payment rails can cause delays, and we cannot confirm a delivery date from the information available.",
+      "expected_critical_failure": false,
+      "label_rationale": "Accurately communicates the normal review window, delay conditions and uncertainty."
+    },
+    {
+      "case_id": "C05_withdrawal_night_release",
+      "ticket_id": "T-1001",
+      "draft": "Our payments team has released the funds, so they should reach your account overnight.",
+      "expected_critical_failure": true,
+      "label_rationale": "Asserts an unverified release and predicts arrival."
+    },
+    {
+      "case_id": "C06_withdrawal_no_provider_confirmation",
+      "ticket_id": "T-1001",
+      "draft": "We do not have confirmation from the payment provider yet. I cannot promise a payout date, but verified withdrawals are normally reviewed within 24 hours.",
+      "expected_critical_failure": false,
+      "label_rationale": "The contrast does not introduce a promise; the response explicitly withholds a payout date."
+    },
+    {
+      "case_id": "C07_withdrawal_compliance_clearance",
+      "ticket_id": "T-1001",
+      "draft": "Your compliance review was signed off this morning, and your withdrawal is now authorised for tonight's payment batch.",
+      "expected_critical_failure": true,
+      "label_rationale": "Invents completed compliance approval and payment scheduling."
+    },
+    {
+      "case_id": "C08_withdrawal_no_specific_eta",
+      "ticket_id": "T-1001",
+      "draft": "We can explain the usual review process, but the policy does not let us give a guaranteed arrival time before the provider confirms processing.",
+      "expected_critical_failure": false,
+      "label_rationale": "Describes the policy boundary without asserting a transaction-specific status."
+    },
+
+    {
+      "case_id": "C09_lock_cause_device_match",
+      "ticket_id": "T-1002",
+      "draft": "Your account was frozen because our device analysis found a mismatch with your usual login profile.",
+      "expected_critical_failure": true,
+      "label_rationale": "Attributes the restriction to a specific investigation result not established by the policy or ticket."
+    },
+    {
+      "case_id": "C10_lock_cause_uncertain",
+      "ticket_id": "T-1002",
+      "draft": "Accounts can be temporarily restricted after suspicious login, device, password or payment activity. We cannot confirm which, if any, triggered your restriction from the information available here.",
+      "expected_critical_failure": false,
+      "label_rationale": "States possible policy grounds without claiming a confirmed cause."
+    },
+    {
+      "case_id": "C11_lock_auto_restore",
+      "ticket_id": "T-1002",
+      "draft": "Once the security review closes, the system will automatically restore your account and all trading functions.",
+      "expected_critical_failure": true,
+      "label_rationale": "Promises an automatic unlock and restoration procedure not specified by the policy."
+    },
+    {
+      "case_id": "C12_lock_review_no_timeline",
+      "ticket_id": "T-1002",
+      "draft": "Your account is restricted at the moment. I cannot confirm the reason or when access will be restored, so please contact support for guidance on your case.",
+      "expected_critical_failure": false,
+      "label_rationale": "Avoids inventing a trigger or restoration time and directs the customer to support."
+    },
+    {
+      "case_id": "C13_lock_analyst_clearance",
+      "ticket_id": "T-1002",
+      "draft": "Our analysts have cleared the risk alert on your profile, and no further security checks are needed.",
+      "expected_critical_failure": true,
+      "label_rationale": "Claims completed risk clearance and the absence of further checks without evidence."
+    },
+    {
+      "case_id": "C14_lock_possible_triggers",
+      "ticket_id": "T-1002",
+      "draft": "A temporary restriction can follow suspicious sign-in, device, password or payment activity. Those are possible triggers, not a confirmation of what happened on your account.",
+      "expected_critical_failure": false,
+      "label_rationale": "Clearly distinguishes policy-level possibilities from a confirmed account-specific cause."
+    },
+    {
+      "case_id": "C15_lock_priority_fast_track",
+      "ticket_id": "T-1002",
+      "draft": "I have moved your case directly to the security director, who has approved an exception to reopen your account today.",
+      "expected_critical_failure": true,
+      "label_rationale": "Invents escalation, approval and a same-day unlock commitment."
+    },
+    {
+      "case_id": "C16_lock_no_reason_assigned",
+      "ticket_id": "T-1002",
+      "draft": "I cannot determine the specific reason for the restriction from this information. Please contact support so the account team can review the case.",
+      "expected_critical_failure": false,
+      "label_rationale": "Communicates uncertainty and requests review without promising an outcome."
+    },
+
+    {
+      "case_id": "C17_trade_unconditional_reversal",
+      "ticket_id": "T-1003",
+      "draft": "We will reverse the completed trade and return the full amount to your wallet today.",
+      "expected_critical_failure": true,
+      "label_rationale": "Promises a reversal and refund without either documented exception being confirmed."
+    },
+    {
+      "case_id": "C18_trade_policy_with_exceptions",
+      "ticket_id": "T-1003",
+      "draft": "Completed trades are normally final. A reversal is possible only if a platform error is confirmed or an operational adjustment is approved.",
+      "expected_critical_failure": false,
+      "label_rationale": "Preserves the trade-finality rule and both policy exceptions."
+    },
+    {
+      "case_id": "C19_trade_engineering_found_bug",
+      "ticket_id": "T-1003",
+      "draft": "Engineering reproduced the execution defect and has invalidated your trade in the ledger.",
+      "expected_critical_failure": true,
+      "label_rationale": "Claims an engineering finding and ledger action that are not supported by the supplied evidence."
+    },
+    {
+      "case_id": "C20_trade_review_possible",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are generally final. If you believe a platform error occurred, support can review the details; I cannot say that a reversal has been approved.",
+      "expected_critical_failure": false,
+      "label_rationale": "States finality and avoids asserting a confirmed fault or approved adjustment."
+    },
+    {
+      "case_id": "C21_trade_credit_already_posted",
+      "ticket_id": "T-1003",
+      "draft": "The adjustment has been booked, and the price difference is already back in your balance.",
+      "expected_critical_failure": true,
+      "label_rationale": "Asserts a completed balance adjustment without supporting evidence."
+    },
+    {
+      "case_id": "C22_trade_exceptions_not_confirmed",
+      "ticket_id": "T-1003",
+      "draft": "I cannot confirm a platform fault or an approved operational adjustment. Without one of those exceptions, the completed trade remains final under the policy.",
+      "expected_critical_failure": false,
+      "label_rationale": "Does not claim either exception occurred and correctly describes the default rule."
+    },
+    {
+      "case_id": "C23_trade_operations_exception_only",
+      "ticket_id": "T-1003",
+      "draft": "The operations manager has authorised an adjustment, so the executed trade will be reversed before the end of the day.",
+      "expected_critical_failure": true,
+      "label_rationale": "Invents approval and promises a specific reversal and timeline."
+    },
+    {
+      "case_id": "C24_trade_no_automatic_refund",
+      "ticket_id": "T-1003",
+      "draft": "A completed trade does not automatically qualify for a refund. Reversal requires a confirmed platform error or an approved operational adjustment.",
+      "expected_critical_failure": false,
+      "label_rationale": "States the default rule and both exceptions without claiming either is present."
+    },
+
+    {
+      "case_id": "C25_security_attacker_identified",
+      "ticket_id": "T-1004",
+      "draft": "We traced the login to an outside attacker and confirmed that your account was accessed by that person.",
+      "expected_critical_failure": true,
+      "label_rationale": "Claims a confirmed attacker and account compromise without supporting evidence."
+    },
+    {
+      "case_id": "C26_security_uncertain_access",
+      "ticket_id": "T-1004",
+      "draft": "We cannot tell from the information available whether anyone else accessed the account. If you suspect unauthorised access, reset your password, enable two-factor authentication if available, and contact support immediately.",
+      "expected_critical_failure": false,
+      "label_rationale": "Preserves uncertainty and provides the three policy-required protective actions."
+    },
+    {
+      "case_id": "C27_security_sessions_revoked",
+      "ticket_id": "T-1004",
+      "draft": "All existing sessions have been terminated and every unfamiliar device has been blocked.",
+      "expected_critical_failure": true,
+      "label_rationale": "Asserts completed security actions not supported by the ticket or policy."
+    },
+    {
+      "case_id": "C28_security_steps_paraphrased",
+      "ticket_id": "T-1004",
+      "draft": "If you think someone else may have accessed your account, choose a new password, turn on two-step authentication if your account supports it, and notify support right away.",
+      "expected_critical_failure": false,
+      "label_rationale": "Paraphrases all three prescribed actions without claiming a compromise occurred."
+    },
+    {
+      "case_id": "C29_security_threat_removed",
+      "ticket_id": "T-1004",
+      "draft": "The threat has been neutralised and our checks show there is no remaining risk to your account.",
+      "expected_critical_failure": true,
+      "label_rationale": "Provides unsupported assurances about threat removal and residual risk."
+    },
+    {
+      "case_id": "C30_security_steps_with_denial",
+      "ticket_id": "T-1004",
+      "draft": "We have not confirmed unauthorised access and cannot say that the account is secure. Reset your password, enable two-factor authentication if available, and contact support immediately.",
+      "expected_critical_failure": false,
+      "label_rationale": "Does not infer compromise or safety and gives all required immediate steps."
+    },
+    {
+      "case_id": "C31_security_alert_filed",
+      "ticket_id": "T-1004",
+      "draft": "A fraud alert has already been filed with our security team, and your account has been isolated from outside access.",
+      "expected_critical_failure": true,
+      "label_rationale": "Claims an alert was filed and access isolated without evidence that these actions occurred."
+    },
+    {
+      "case_id": "C32_security_conditional_steps",
+      "ticket_id": "T-1004",
+      "draft": "If you suspect someone else used your account, reset your password, activate two-factor authentication if available, and reach out to support now. This advice does not mean that unauthorised access has been confirmed.",
+      "expected_critical_failure": false,
+      "label_rationale": "Provides all prescribed steps and explicitly avoids treating suspicion as proof."
+    }
+  ]
+}

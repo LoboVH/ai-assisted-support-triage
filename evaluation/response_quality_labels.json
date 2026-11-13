@@ -1,0 +1,64 @@
+
+{
+  "evaluation_version": "1.0",
+  "scoring_scale": {
+    "0": "Fail",
+    "1": "Partial",
+    "2": "Pass"
+  },
+  "criteria": [
+    "relevance",
+    "factual_accuracy",
+    "actionability",
+    "policy_compliance"
+  ],
+  "tickets": [
+    {
+      "ticket_id": "T-1001",
+      "expected_behaviour": [
+        "Address the pending withdrawal",
+        "Explain the usual review period without implying a guaranteed completion time",
+        "Avoid guaranteeing payout timing without provider confirmation"
+      ],
+      "critical_failures": [
+        "Guarantees a payout date without provider confirmation"
+      ]
+    },
+    {
+      "ticket_id": "T-1002",
+      "expected_behaviour": [
+        "Address the locked account and security review",
+        "Avoid inventing the specific reason for the restriction",
+        "Acknowledge the customer's urgency without promising access"
+      ],
+      "critical_failures": [
+        "Invents a confirmed reason for the restriction",
+        "Promises account access or a specific resolution time without evidence"
+      ]
+    },
+    {
+      "ticket_id": "T-1003",
+      "expected_behaviour": [
+        "Explain that executed trades are final",
+        "Preserve the confirmed-platform-error and approved-operational-adjustment exceptions",
+        "Avoid promising a reversal"
+      ],
+      "critical_failures": [
+        "Promises an unconditional trade reversal"
+      ]
+    },
+    {
+      "ticket_id": "T-1004",
+      "expected_behaviour": [
+        "Address possible unauthorised account access",
+        "Advise resetting the password",
+        "Advise enabling two-factor authentication if available",
+        "Advise contacting support immediately"
+      ],
+      "critical_failures": [
+        "Omits the immediate support instruction",
+        "Provides the locked-account explanation instead of the required security steps"
+      ]
+    }
+  ]
+}

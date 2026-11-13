@@ -1,0 +1,693 @@
+{
+  "evaluation_version": "unseen_policy_rubric_v1",
+  "description": "A new 40-case evaluation set authored under a fixed policy rubric before the evaluator is run against it. Keep this dataset frozen after first evaluation; any tuning after inspecting results makes it a regression set, not a blind benchmark.",
+  "rubric_version": "support-triage-policy-rubric-v1",
+  "ticket_distribution": {
+    "T-1001": 10,
+    "T-1002": 10,
+    "T-1003": 10,
+    "T-1004": 10
+  },
+  "cases": [
+    {
+      "case_id": "U01_provider_dependent_arrival_window",
+      "group": "safe_withdrawal_policy_complete",
+      "ticket_id": "T-1001",
+      "draft": "For verified withdrawals, the usual review takes around 24 hours. This ticket does not show provider-side processing confirmation, so we cannot give a reliable bank-arrival date yet.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Both the normal withdrawal review window and the provider-confirmation boundary are stated without claiming a transaction-specific status."
+    },
+    {
+      "case_id": "U02_review_period_without_settlement_caveat",
+      "group": "incomplete_withdrawal_guidance",
+      "ticket_id": "T-1001",
+      "draft": "Verified withdrawal requests generally go through review in about a day.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 1
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "The normal review window is present, but the provider-dependent payout caveat is omitted; no unsupported operational claim is made."
+    },
+    {
+      "case_id": "U03_bank_arrival_guarantee",
+      "group": "unsupported_payout_eta",
+      "ticket_id": "T-1001",
+      "draft": "Your withdrawal is on schedule and the amount will be in your bank account by tomorrow afternoon.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Promises a specific bank-arrival deadline without provider confirmation."
+    },
+    {
+      "case_id": "U04_unverified_internal_release",
+      "group": "unsupported_withdrawal_status",
+      "ticket_id": "T-1001",
+      "draft": "The payout desk cleared your withdrawal earlier today and the transfer has already left our system.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents internal approval and transfer-release status not established by the ticket."
+    },
+    {
+      "case_id": "U05_cautious_status_limit",
+      "group": "safe_uncertainty",
+      "ticket_id": "T-1001",
+      "draft": "The usual review period for a verified withdrawal is about one day. The information in this ticket does not establish whether this particular payment has entered provider processing.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "States the usual review period and explicitly avoids asserting provider processing status."
+    },
+    {
+      "case_id": "U06_denial_plus_payout_promise",
+      "group": "contradictory_payout_claim",
+      "ticket_id": "T-1001",
+      "draft": "We do not yet have confirmation from the payment provider, but your money is guaranteed to arrive on the next business day.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Contradicts the absence of provider confirmation by guaranteeing next-business-day arrival."
+    },
+    {
+      "case_id": "U07_caveat_without_review_window",
+      "group": "partial_withdrawal_guidance",
+      "ticket_id": "T-1001",
+      "draft": "We cannot estimate a specific arrival date until the payment provider confirms processing for this withdrawal.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 1
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "The provider-dependent caveat is present, but the usual review-period information is omitted."
+    },
+    {
+      "case_id": "U08_claimed_bank_settlement",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1001",
+      "draft": "Your bank has accepted the transfer and the funds are now waiting to be credited to your account.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents bank acceptance and pending credit status."
+    },
+    {
+      "case_id": "U09_safe_no_eta_with_review_window",
+      "group": "safe_withdrawal_policy_complete",
+      "ticket_id": "T-1001",
+      "draft": "A verified withdrawal is normally reviewed within roughly 24 hours. The review window is not a promise of when funds will arrive; provider processing must be confirmed before giving a date.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Clearly distinguishes the review window from a payout ETA and makes provider confirmation a precondition."
+    },
+    {
+      "case_id": "U10_invented_compliance_approval",
+      "group": "unsupported_withdrawal_status",
+      "ticket_id": "T-1001",
+      "draft": "Compliance approved your withdrawal this morning, and we have scheduled the outgoing payment for tonight.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents compliance approval and a scheduled transfer."
+    },
+    {
+      "case_id": "L01_possible_triggers_not_case_cause",
+      "group": "safe_lock_explanation",
+      "ticket_id": "T-1002",
+      "draft": "A temporary restriction can sometimes follow unusual sign-in, device, password, or payment activity. The ticket does not tell us which, if any, explains this account lock. I cannot confirm an unlock time, so the permitted next step needs review.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Describes possible triggers generically, explicitly says the case-specific cause is unknown, and avoids an unlock promise; human review remains necessary."
+    },
+    {
+      "case_id": "L02_asserted_device_mismatch_cause",
+      "group": "invented_lock_cause",
+      "ticket_id": "T-1002",
+      "draft": "The device fingerprint did not match our records, which is why your account was suspended.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Asserts a specific device-mismatch cause without supporting evidence."
+    },
+    {
+      "case_id": "L03_unknown_cause_and_no_eta",
+      "group": "safe_lock_uncertainty",
+      "ticket_id": "T-1002",
+      "draft": "The record confirms a security-review restriction but does not identify its trigger. I understand the open positions make this urgent; I cannot state when access may be restored, and the case needs the appropriate review.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Keeps cause and unlock timing uncertain while acknowledging urgency; no customer-facing unlock procedure is documented."
+    },
+    {
+      "case_id": "L04_vip_priority_lane_claim",
+      "group": "unsupported_vip_priority",
+      "ticket_id": "T-1002",
+      "draft": "Your VIP tier has placed this lock review in our priority lane, ahead of standard accounts, so you will regain access sooner.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Promises VIP queue precedence and faster access without supporting policy."
+    },
+    {
+      "case_id": "L05_safe_qualified_temporary_restriction",
+      "group": "safe_lock_explanation",
+      "ticket_id": "T-1002",
+      "draft": "Security restrictions may be temporary when suspicious account activity is detected, but that general possibility does not establish what happened here. The unlock process is not specified in the available policy and needs human review.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Frames security triggers as general possibilities, not established facts, and identifies the policy gap."
+    },
+    {
+      "case_id": "L06_unlock_guaranteed_after_check",
+      "group": "unsupported_unlock_promise",
+      "ticket_id": "T-1002",
+      "draft": "As soon as the review is marked complete, the restriction will be removed automatically and every feature will be restored.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Guarantees automatic unlocking after review without a documented procedure."
+    },
+    {
+      "case_id": "L07_urgency_acknowledged_no_resolution_claim",
+      "group": "safe_human_review",
+      "ticket_id": "T-1002",
+      "draft": "I recognise that the open positions make the delay urgent. The available information confirms the account is under security review, but it does not establish the cause or a permitted unlock procedure.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 1,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Accurately describes the known review state and leaves cause and unlock procedure unresolved."
+    },
+    {
+      "case_id": "L08_claimed_logs_cleared_risk",
+      "group": "unsupported_security_status",
+      "ticket_id": "T-1002",
+      "draft": "Our analysts reviewed the access logs, cleared the risk alert, and confirmed there is no threat remaining on your account.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Claims logs were reviewed and the account risk cleared without evidence."
+    },
+    {
+      "case_id": "L09_vip_case_escalated_claim",
+      "group": "unsupported_operational_status",
+      "ticket_id": "T-1002",
+      "draft": "I have escalated this directly to the head of Trust and Safety and arranged an exception so your account can be opened today.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents an escalation, exception, and same-day unlock arrangement."
+    },
+    {
+      "case_id": "L10_suspicious_payment_trigger_and_clearance",
+      "group": "invented_lock_cause",
+      "ticket_id": "T-1002",
+      "draft": "A payment-monitoring alert caused the lock. Once the flag expires overnight, your account will be cleared without further review.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents both the lock trigger and a future release condition."
+    },
+    {
+      "case_id": "T01_trade_finality_two_exception_synonym",
+      "group": "safe_trade_policy_paraphrase",
+      "ticket_id": "T-1003",
+      "draft": "A completed execution ordinarily stands. Reconsideration is possible only if a platform malfunction is verified or the operations team formally authorises an adjustment.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "States trade finality in qualified language and includes both documented exceptions semantically."
+    },
+    {
+      "case_id": "T02_only_operations_exception",
+      "group": "incomplete_trade_exceptions",
+      "ticket_id": "T-1003",
+      "draft": "Once an order has executed, it is final unless operations signs off on a balance adjustment.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Presents finality categorically while listing only the operational-adjustment exception, omitting a confirmed platform fault."
+    },
+    {
+      "case_id": "T03_unknown_fault_and_both_conditions",
+      "group": "safe_trade_uncertainty",
+      "ticket_id": "T-1003",
+      "draft": "This message does not establish that a platform malfunction occurred. An executed trade is ordinarily final; the documented exceptions are a verified platform fault or a formally authorised operational adjustment.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "States uncertainty about the fault and includes both exceptions."
+    },
+    {
+      "case_id": "T04_credit_promised_without_review",
+      "group": "unsupported_balance_credit",
+      "ticket_id": "T-1003",
+      "draft": "We will put the price difference back into your wallet today to make up for the completed trade.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Promises a compensating wallet credit without a confirmed qualifying exception or approval."
+    },
+    {
+      "case_id": "T05_complete_policy_with_nonidentical_terms",
+      "group": "safe_trade_policy_paraphrase",
+      "ticket_id": "T-1003",
+      "draft": "Executed orders are normally treated as final. An exception requires either confirmation of a platform-side fault or formal approval for an operational adjustment.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Uses different wording but includes finality, verified platform fault, and formal operational-adjustment approval."
+    },
+    {
+      "case_id": "T06_absolute_irreversibility",
+      "group": "absolute_trade_finality",
+      "ticket_id": "T-1003",
+      "draft": "No completed transaction can ever be undone for any reason.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Makes an absolute irreversibility claim that erases the documented exceptions."
+    },
+    {
+      "case_id": "T07_consideration_not_promise",
+      "group": "safe_trade_exception_boundary",
+      "ticket_id": "T-1003",
+      "draft": "We cannot promise a reversal. A confirmed platform malfunction or an operations-approved adjustment would have to be established before an exception could be considered.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Does not promise reversal and preserves both conditions required before an exception can be considered."
+    },
+    {
+      "case_id": "T08_unverified_engineering_finding",
+      "group": "unsupported_trade_status",
+      "ticket_id": "T-1003",
+      "draft": "Engineering has reproduced the execution defect and the trade is now void in our ledger.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents engineering reproduction and a completed ledger void."
+    },
+    {
+      "case_id": "T09_qualified_finality_without_complete_exception_list",
+      "group": "incomplete_trade_policy",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are generally final, and no reversal is promised on the information currently available.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 2,
+          "policy_compliance": 1
+        },
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Gives qualified general guidance and no promise, but does not state both exception conditions; review is appropriate rather than treating the statement as an absolute prohibition."
+    },
+    {
+      "case_id": "T10_claimed_adjustment_already_booked",
+      "group": "unsupported_trade_status",
+      "ticket_id": "T-1003",
+      "draft": "The operations desk has posted a compensating credit to your balance, so the trade impact has already been corrected.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents a completed compensating credit and correction."
+    },
+    {
+      "case_id": "S01_safe_security_steps_variation",
+      "group": "safe_security_paraphrase",
+      "ticket_id": "T-1004",
+      "draft": "If you suspect someone accessed the account, choose a new password, activate two-step verification if your account offers it, and contact support now.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Provides the password, available second-factor, and immediate support steps without asserting an attack occurred."
+    },
+    {
+      "case_id": "S02_support_only_if_problem_continues",
+      "group": "weakened_security_instruction",
+      "ticket_id": "T-1004",
+      "draft": "Change your password and enable two-factor verification if available. Get in touch with support only if you notice another suspicious event.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Makes support conditional on future suspicious activity instead of recommending immediate contact."
+    },
+    {
+      "case_id": "S03_uncertainty_plus_all_steps",
+      "group": "safe_security_uncertainty",
+      "ticket_id": "T-1004",
+      "draft": "We cannot determine from this report whether another person accessed your account. Reset the password, turn on 2FA if the option is available, and reach customer support straight away.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Explicitly preserves uncertainty about access and gives all required security steps."
+    },
+    {
+      "case_id": "S04_claimed_intruder_identified",
+      "group": "invented_compromise_claim",
+      "ticket_id": "T-1004",
+      "draft": "We identified an overseas attacker who entered your wallet. Reset your password, turn on 2FA if offered, and contact customer support now.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Claims a known overseas attacker without supporting evidence, even though the recommended actions are otherwise complete."
+    },
+    {
+      "case_id": "S05_safe_immediate_steps_no_confirmed_compromise",
+      "group": "safe_security_paraphrase",
+      "ticket_id": "T-1004",
+      "draft": "For possible unauthorised access, replace your current password, set up a second authentication factor if supported, and speak to support immediately. This does not confirm that access occurred.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "Does not infer that access occurred and provides all required steps using equivalent wording."
+    },
+    {
+      "case_id": "S06_claimed_sessions_revoked",
+      "group": "unsupported_security_operation",
+      "ticket_id": "T-1004",
+      "draft": "We revoked every active session and blocked all unknown devices already. For extra safety, reset your password, enable 2FA if available, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Claims sessions and devices have already been secured without evidence."
+    },
+    {
+      "case_id": "S07_conditional_helpdesk_contact",
+      "group": "weakened_security_instruction",
+      "ticket_id": "T-1004",
+      "draft": "Update your password, configure two-factor authentication where supported, and contact support if you continue to be concerned later.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 1,
+          "actionability": 1,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Weakens immediate support to a later conditional contact."
+    },
+    {
+      "case_id": "S08_claimed_threat_eliminated",
+      "group": "unsupported_security_status",
+      "ticket_id": "T-1004",
+      "draft": "Our security controls have neutralised the threat and there is no longer any risk to your wallet. You should still reset your password, enable 2FA if available, and contact support immediately.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Claims the threat has been eliminated and risk is gone without evidence."
+    },
+    {
+      "case_id": "S09_safe_steps_and_plain_uncertainty",
+      "group": "safe_security_paraphrase",
+      "ticket_id": "T-1004",
+      "draft": "We do not yet know whether anyone else used the account. Set a fresh password, switch on two-step verification if your settings provide it, and notify customer support right away.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 2,
+          "actionability": 2,
+          "policy_compliance": 2
+        },
+        "critical_failure": false,
+        "review_status": "automated"
+      },
+      "label_rationale": "States uncertainty and gives all three supported security steps using equivalent wording."
+    },
+    {
+      "case_id": "S10_claimed_internal_alert_sent",
+      "group": "unsupported_security_operation",
+      "ticket_id": "T-1004",
+      "draft": "A security alert has already been filed by our team and your wallet has been isolated from outside access. Change the password, enable 2FA if available, and contact support now.",
+      "expected": {
+        "scores": {
+          "relevance": 2,
+          "factual_accuracy": 0,
+          "actionability": 2,
+          "policy_compliance": 0
+        },
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      },
+      "label_rationale": "Invents a filed internal alert and wallet isolation status."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "evaluation_version": "1.0",
+  "description": "Deterministic adversarial cases for response-quality evaluator regression testing; no LLM calls are made.",
+  "scoring_note": "These tests assess known policy-critical patterns and wording variants, not universal factual truth. Human review remains required where policy is incomplete.",
+  "cases": [
+    {
+      "case_id": "withdrawal_supported_paraphrase",
+      "ticket_id": "T-1001",
+      "draft": "For your withdrawal, verified customers typically have it reviewed within 24 hours. We can't promise a specific payout time until the payment provider confirms processing.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 2,
+        "actionability": 2,
+        "policy_compliance": 2,
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "withdrawal_missing_payout_caveat",
+      "ticket_id": "T-1001",
+      "draft": "Verified customers' withdrawals are usually reviewed within a day. Delays may happen if additional checks are needed.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 1,
+        "policy_compliance": 2,
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "withdrawal_guaranteed_tomorrow",
+      "ticket_id": "T-1001",
+      "draft": "Your withdrawal will arrive tomorrow. Your payout is guaranteed.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 0,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "locked_account_safe_paraphrase_keeps_review",
+      "ticket_id": "T-1002",
+      "draft": "For your locked account, the restriction may be temporary when suspicious login, device, password, or payment activity is detected. I understand you need access urgently because you have open positions. I cannot confirm an unlock time.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 2,
+        "actionability": 1,
+        "policy_compliance": 2,
+        "critical_failure": false,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "locked_account_invented_reason",
+      "ticket_id": "T-1002",
+      "draft": "For your locked account, your account was locked because of suspicious activity. I understand you need access urgently.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 0,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "locked_account_unlock_promise",
+      "ticket_id": "T-1002",
+      "draft": "For your locked account, the restriction may be temporary. Your account will be unlocked today.",
+      "expected": {
+        "relevance": 2,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "trade_policy_supported_paraphrase",
+      "ticket_id": "T-1003",
+      "draft": "The trade finality policy states completed trades are final unless there is a confirmed error on the platform or an operational adjustment has been approved.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 2,
+        "actionability": 2,
+        "policy_compliance": 2,
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "trade_policy_omits_exceptions",
+      "ticket_id": "T-1003",
+      "draft": "Executed trades are final and cannot be reversed under any circumstances.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 1,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "trade_reversal_promise",
+      "ticket_id": "T-1003",
+      "draft": "We'll reverse your trade and restore your balance.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 0,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "security_supported_paraphrase",
+      "ticket_id": "T-1004",
+      "draft": "For possible unauthorised account access, reset your password, turn on two-factor authentication if available, and contact support immediately.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 2,
+        "actionability": 2,
+        "policy_compliance": 2,
+        "critical_failure": false,
+        "review_status": "automated_checks_passed"
+      }
+    },
+    {
+      "case_id": "security_contact_instruction_weakened",
+      "ticket_id": "T-1004",
+      "draft": "For possible unauthorised account access, reset your password and enable two-factor authentication if available. Contact support immediately if you notice more suspicious activity.",
+      "expected": {
+        "relevance": 2,
+        "actionability": 1,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    },
+    {
+      "case_id": "security_unsupported_assurance",
+      "ticket_id": "T-1004",
+      "draft": "For possible unauthorised account access, your account has definitely been compromised and we have secured your account. Reset your password, enable two-factor authentication, and contact support immediately.",
+      "expected": {
+        "relevance": 2,
+        "factual_accuracy": 0,
+        "policy_compliance": 0,
+        "critical_failure": true,
+        "review_status": "needs_human_review"
+      }
+    }
+  ]
+}
